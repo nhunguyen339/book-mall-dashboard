@@ -1,0 +1,15 @@
+.update-book-modal table tr td:nth-of-type(2),.update-book-modal table textarea, .update-book-modal table select {
+    width: 600px;
+}
+.update-book-modal table tr td:nth-of-type(2) input,.update-book-modal table textarea, .update-book-modal table select {
+    width: 100%;
+    padding: 5px 10px;
+}
+.update-book-modal table tr td {
+    padding: 10px;
+    border: none;
+}
+
+#ngxEditor > div > div {
+  height: 200px;
+}

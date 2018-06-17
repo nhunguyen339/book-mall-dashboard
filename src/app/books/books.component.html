@@ -1,0 +1,268 @@
+<div class="row mt-5">
+  <div class="col-md-12">
+    <!--Card-->
+    <div class="card card-cascade narrower mt-5">
+      <!--Card image-->
+      <div class="view gradient-card-header blue darken-2">
+        <h4 class="h4-responsive text-white">Multitasking Book</h4>
+      </div>
+      <!--/Card image-->
+      <!--Card content-->
+      <div class="card-body">
+
+        <h3 class="mt-5 text-left">
+          <strong>Books</strong>
+        </h3>
+        <p>Using the most basic table markup, here’s how .table-based tables look in Bootstrap. All table styles are inherited
+          in Bootstrap 4, meaning any nested tables will be styled in the same manner as the parent.</p>
+        <button type="button" class="btn btn-secondary m-0 mb-3 float-right" data-toggle="modal" data-target=".add-genre">Add book</button>
+
+        <div class="modal fade add-genre" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+          <app-add-new-book [genres]="genres"></app-add-new-book>
+        </div>
+        <table class="table table-striped">
+          <thead class="darken-3 text-white">
+            <tr>
+              <th>#</th>
+              <th>Title</th>
+              <th>Price</th>
+              <th>Genre</th>
+              <th>Athor</th>
+              <th colspan="2">Multitasking</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let book of books">
+              <th scope="row">{{book._id}}</th>
+              <td>{{book.title}}</td>
+              <td>{{book.sellingPrice}}</td>
+              <td>{{book.genre.name}}</td>
+              <td>{{book.author}}</td>
+              <td class="w">
+                <button (click)="onSelectBook(book); onSelectGenre(genre)" type="button" class="btn btn-info" data-toggle="modal" data-target=".update-book">Update</button>
+
+                <div class="modal update-book" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+                  <div class="modal-dialog modal-lg" *ngIf="selectedBook">
+                    <div class="modal-content p-4">
+                      <div class="container">
+                        <div class="row update-book-modal">
+                          <div class="col-12">
+                            <h2 class="pb-3">Update Book</h2>
+                            <form [formGroup]="formBookUpdate" #formDir="ngForm">
+                              <div [hidden]="formDir.submitted">
+                                <table class="w-100">
+                                  <tr class="form-group">
+                                    <td>
+                                      <label for="updateTitle">Title*:</label>
+                                    </td>
+                                    <td>
+                                      <input [(ngModel)]="selectedBook.title" formControlName="title" id="updateTitle" type="text" required>
+                                      <div *ngIf="getTitle.invalid && (getTitle.dirty || getTitle.touched)">
+                                        <div *ngIf="getTitle.errors['required']">
+                                          <p class="error">* Title is required.</p>
+                                        </div>
+                                        <div *ngIf="getTitle.errors['maxlength']">
+                                          <p class="error">Title's maxlength is 30.</p>
+                                        </div>
+                                      </div>
+                                    </td>
+                                  </tr>
+                                  <tr>
+                                    <td>
+                                      <label for="updateGenre">Genre*:</label>
+                                    </td>
+                                    <td>
+                                      <select [(ngModel)]="selectedBook.genre" formControlName="genre" id="updateGenre" [compareWith]="compareFn">
+                                        <option *ngFor="let x of genres" [ngValue]="x" >{{x.name}}</option>
+                                      </select>
+                                      <div *ngIf="getGenre.invalid && ( getGenre.dirty || getGenre.touched )">
+                                        <div *ngIf="getGenre.errors['required']">
+                                          <p class="error">* Genre is required.</p>
+                                        </div>
+                                      </div>
+                                    </td>
+                                  </tr>
+                                  <tr class="form-group">
+                                    <td>
+                                      <label for="updateAuthor">Author*:</label>
+                                    </td>
+                                    <td>
+                                      <input [(ngModel)]="selectedBook.author" formControlName="author" formControlName="author" id="updateAuthor" type="text">
+                                      <div *ngIf="getAuthor.invalid && (getAuthor.dirty || getAuthor.touched)">
+                                        <div *ngIf="getAuthor.errors['required']">
+                                          <p class="error">* Author is required.</p>
+                                        </div>
+                                      </div>
+                                    </td>
+                                  </tr>
+                                  <tr class="form-group">
+                                    <td>
+                                      <label for="updatePublisher">Publisher*:</label>
+                                    </td>
+                                    <td>
+                                      <input [(ngModel)]="selectedBook.publisher" formControlName="publisher" id="updatePublisher" type="text">
+                                      <div *ngIf="getPublisher.invalid && ( getPublisher.dirty || getPublisher.touched )">
+                                        <div *ngIf="getPublisher.errors['required']">
+                                          <p class="error">* Publisher is required</p>
+                                        </div>
+                                      </div>
+                                    </td>
+                                  </tr>
+                                  <tr class="form-group">
+                                    <td>
+                                      <label for="updatePages">Pages:</label>
+                                    </td>
+                                    <td>
+                                      <input [(ngModel)]="selectedBook.pages" formControlName="pages" id="updatePages" type="number" min="0">
+                                    </td>
+                                  </tr>
+                                  <tr class="form-group">
+                                    <td>
+                                      <label for="updateWeight">Weight:</label>
+                                    </td>
+                                    <td>
+                                      <input [(ngModel)]="selectedBook.weight" formControlName="weight" id="updateWeight" type="number" min="0">
+                                    </td>
+                                  </tr>
+                                  <tr class="form-group">
+                                    <td>
+                                      <label for="updateReleaseDate">ReleaseDate:</label>
+                                    </td>
+                                    <td>
+                                      <input [(ngModel)]="selectedBook.releaseDate" formControlName="releaseDate" id="updateReleaseDate" type="date">
+                                    </td>
+                                  </tr>
+                                  <tr class="form-group">
+                                    <td>
+                                      <label for="updateShortDescription">Short Description:</label>
+                                    </td>
+                                    <td>
+                                      <textarea [(ngModel)]="selectedBook.shortDescription" formControlName="shortDescription" id="updateShortDescription"></textarea>
+                                    </td>
+                                  </tr>
+                                  <tr class="form-group">
+                                    <td>
+                                      <label for="updateFullDescription">Full Description:</label>
+                                    </td>
+                                    <td>
+                                      <app-ngx-editor [spellcheck]="true" [(ngModel)]="selectedBook.fullDescription" formControlName="fullDescription" id="updateFullDescription"></app-ngx-editor>
+                                    </td>
+                                  </tr>
+                                  <tr class="form-group">
+                                    <td>
+                                      <label for="updateSku">Sku:</label>
+                                    </td>
+                                    <td>
+                                      <input [(ngModel)]="selectedBook.sku" formControlName="sku" id="updateSku" type="number">
+                                    </td>
+                                  </tr>
+                                  <tr class="form-group">
+                                    <td>
+                                      <label for="updatePreviousPrice">Previous Price*:</label>
+                                    </td>
+                                    <td>
+                                      <input [(ngModel)]="selectedBook.previousPrice" formControlName="previousPrice" id="updatePreviousPrice" type="number" min="0">
+                                      <div *ngIf="getPreviousPrice.invalid && ( getPreviousPrice.dirty || getPreviousPrice.touched )">
+                                        <div *ngIf="getPreviousPrice.errors['required']">
+                                          <p class="error">* Previous Price is required.</p>
+                                        </div>
+                                      </div>
+                                    </td>
+                                  </tr>
+                                  <tr class="form-group">
+                                    <td>
+                                      <label for="updateSellingPrice">Selling Price*:</label>
+                                    </td>
+                                    <td>
+                                      <input [(ngModel)]="selectedBook.sellingPrice" formControlName="sellingPrice" id="updateSellingPrice" type="number" min="0">
+                                      <div *ngIf="getSellingPrice.invalid && ( getSellingPrice.dirty || getSellingPrice.touched )">
+                                        <div *ngIf="getSellingPrice.errors['required']">
+                                          <p class="error">* Selling Price Is required.</p>
+                                        </div>
+                                      </div>
+                                    </td>
+                                  </tr>
+                                  <!-- <tr>
+                                                          <td>Comment:</td>
+                                                          <td><input type="number" minlength="1"></td>
+                                                        </tr> -->
+                                  <tr class="form-group">
+                                    <td>
+                                      <label for="updateImage">Image Url*:</label>
+                                    </td>
+                                    <td>
+                                      <input *ngIf="selectedBook.images" [(ngModel)]="selectedBook.images.main" formControlName="image" id="updateImage" type="text">
+                                      <div *ngIf="getImage.invalid && ( getImage.dirty || getImage.touched )">
+                                        <div *ngIf="getImage.errors['required']">
+                                          <p class="error">* Image Url is required.</p>
+                                        </div>
+                                      </div>
+                                    </td>
+                                  </tr>
+                                  <tr class="form-group">
+                                    <td>
+                                      <label for="updateWidth">Width:</label>
+                                    </td>
+                                    <td>
+                                      <input *ngIf="selectedBook.size" formControlName="width" id="updateWidth" [(ngModel)]="selectedBook.size.width" type="number"
+                                        min="0">
+                                    </td>
+                                  </tr>
+                                  <tr class="form-group">
+                                    <td>
+                                      <label for="updateHeight">Height:</label>
+                                    </td>
+                                    <td>
+                                      <input *ngIf="selectedBook.size" [(ngModel)]="selectedBook.size.height" formControlName="height" id="updateHeight" type="number"
+                                        min="0">
+                                    </td>
+                                  </tr>
+                                  <tr class="form-group">
+                                    <td>
+                                      <label for="updateDepth">Depth:</label>
+                                    </td>
+                                    <td>
+                                      <input *ngIf="selectedBook.size" [(ngModel)]="selectedBook.size.depth" formControlName="depth" id="updateDepth" type="number"
+                                        min="0">
+                                    </td>
+                                  </tr>
+                                </table>
+                              </div>
+                            </form>
+                          </div>
+                          <div class="col-12">
+                            <div class="d-flex justify-content-end">
+                              <button type="submit" class="btn btn-info" [disabled]="formDir.invalid" (click)="save()">Update</button>
+                              <button type="button" data-dismiss="modal" class="btn btn-danger">Cancel</button>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </td>
+              <td class="w">
+                <button (click)="onSelectBook(book)" type="button" class="btn btn-danger" data-toggle="modal" data-target=".delete-book">Delete</button>
+                <div *ngIf="selectedBook">
+                  <div class="modal fade delete-book" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-sm">
+                      <div class="modal-content p-4">
+                        <h2>Do you want to delete {{selectedBook.title}}</h2>
+                        <button (click)="deleteBook(selectedBook)" type="button" class="btn btn-info">Delete</button>
+                        <button type="button" data-dismiss="modal" class="btn btn-danger">Cancel</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!--/.Card content-->
+    </div>
+    <!--/.Card-->
+  </div>
+</div>

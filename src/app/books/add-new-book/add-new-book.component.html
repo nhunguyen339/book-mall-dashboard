@@ -1,0 +1,216 @@
+<div class="modal-dialog modal-lg">
+  <div class="modal-content p-4">
+    <div class="container">
+      <div class="row update-book-modal">
+        <div class="col-12">
+          <h2 class="pb-3">Add new Book</h2>
+          <form [formGroup]="bookForm" #formDir="ngForm">
+            <div [hidden]="formDir.submitted">
+              <table class="w-100 table table-striped">
+                <tr class="form-group">
+                  <td>
+                    <label for="titleNew">Title*:</label>
+                  </td>
+                  <td>
+                    <input formControlName="title" [(ngModel)]="newBook.title" type="text" name="title" id="titleNew" required>
+                    <div *ngIf="getTitle.invalid && (getTitle.dirty || getTitle.touched)">
+                      <div *ngIf="getTitle.errors['required']">
+                        <p class="error">
+                          * Title is required.
+                        </p>
+                      </div>
+                      <div *ngIf="getTitle.errors['maxlength']">
+                        <p class="error">
+                          * Title' maxlength is 30.
+                        </p>
+                      </div>
+                      <div *ngIf="getTitle.errors['fobiddenName']">
+                        <p class="error">
+                          * Title is fobidden Name.
+                        </p>
+                      </div>
+                    </div>
+                  </td>
+                </tr>
+                <tr class="form-group">
+                  <td>
+                    <label for="genreNew">Genre*:</label>
+                  </td>
+                  <td>
+                    <select id="genreNew" formControlName="genre" required>
+                      <option (click)="onSelectGenre(genre)" *ngFor="let genre of genres" [ngValue]="genre._id">{{genre.name}}</option>
+                    </select>
+                    <div *ngIf="getGenre.invalid && (getGenre.dirty || getGenre.touched)">
+                      <div *ngIf="getGenre.errors['required']">
+                        <p class="error">
+                          * Genre is required.
+                        </p>
+                      </div>
+                    </div>
+                  </td>
+                </tr>
+                <tr class="form-group">
+                  <td>
+                    <label for="publisherNew">Author*:</label>
+                  </td>
+                  <td>
+                    <input [(ngModel)]="newBook.author" formControlName="author" id="publisherNew" type="text">
+                    <div *ngIf="getAuthor.invalid && (getAuthor.dirty || getAuthor.touched)">
+                      <div *ngIf="getAuthor.errors['required']">
+                        <p class="error">
+                          * Author is required.
+                        </p>
+                      </div>
+                    </div>
+                  </td>
+                </tr>
+                <tr class="form-group">
+                  <td>
+                    <label for="publisherNew">Publisher*:</label>
+                  </td>
+                  <td>
+                    <input [(ngModel)]="newBook.publisher" formControlName="publisher" id="publisherNew" type="text">
+                    <div *ngIf="getPublisher.invalid && ( getPublisher.dirty || getPublisher.touched  )">
+                      <div *ngIf="getPublisher.errors['required']">
+                        <p class="error">
+                          *Publisher is required.
+                        </p>
+                      </div>
+                    </div>
+                  </td>
+                </tr>
+                <tr class="form-group">
+                  <td>
+                    <label for="pagesNew">Pages:</label>
+                  </td>
+                  <td>
+                    <input [(ngModel)]="newBook.pages" formControlName="page" id="pagesNew" type="number" min="0">
+                  </td>
+                </tr>
+                <tr class="form-group">
+                  <td>
+                    <label for="weightNew">Weight:</label>
+                  </td>
+                  <td>
+                    <input [(ngModel)]="newBook.weight" formControlName="weight" id="weightNew" type="number" min="0">
+                  </td>
+                </tr>
+                <tr class="form-group">
+                  <td>
+                    <label for="releaseDateNew">Release Date:</label>
+                  </td>
+                  <td>
+                    <input [(ngModel)]="newBook.releaseDate" formControlName="releaseDate" id="releaseDateNew" type="date">
+                  </td>
+                </tr>
+                <tr class="form-group">
+                  <td>
+                    <label for="shortDescriptionNew">Short Dessciption:</label>
+                  </td>
+                  <td>
+                    <textarea [(ngModel)]="newBook.shortDescription" formControlName="shortDescription" id="shortDescriptionNew"></textarea>
+                  </td>
+                </tr>
+                <tr class="form-group">
+                  <td>
+                    <label for="fullDescriptionNew">Full Description:</label>
+                  </td>
+                  <td>
+                    <app-ngx-editor [spellcheck]="true" [(ngModel)]="newBook.fullDescription" formControlName="fullDescription" id="fullDescriptionNew"></app-ngx-editor>
+                  </td>
+                </tr>
+                <tr class="form-group">
+                  <td>
+                    <label for="skuNew">Sku:</label>
+                  </td>
+                  <td>
+                    <input [(ngModel)]="newBook.sku" type="number" vminlength="1" formControlName="sku" id="skuNew">
+                  </td>
+                </tr>
+                <tr class="form-group">
+                  <td>
+                    <label for="previousPriceNew">Previous Price*:</label>
+                  </td>
+                  <td>
+                    <input [(ngModel)]="newBook.previousPrice" formControlName="previousPrice" id="previousPriceNew" type="number" min="-1">
+                    <div *ngIf="getPreviousPrice.invalid && ( getPreviousPrice.dirty || getPreviousPrice.touched )">
+                      <div *ngIf="getPreviousPrice.errors['required']">
+                        <p class="error">
+                          * Previous price is required.
+                        </p>
+                      </div>
+                    </div>
+                  </td>
+                </tr>
+                <tr class="form-group">
+                  <td>
+                    <label for="sellingPriceNew">Selling Price*:</label>
+                  </td>
+                  <td>
+                    <input [(ngModel)]="newBook.sellingPrice" formControlName="sellingPrice" id="sellingPriceNew" type="number" min="0">
+                    <div *ngIf="getSellingPrice.invalid &&  ( getSellingPrice.dirty || getSellingPrice.touched )">
+                      <div *ngIf="getSellingPrice.errors['required']">
+                        <p class="error">
+                          * Selling Price is required.
+                        </p>
+                      </div>
+                    </div>
+                  </td>
+                </tr>
+                <!-- <tr>
+                        <td>Comment:</td>
+                        <td><input type="number" minlength="1"></td>
+                      </tr> -->
+                <tr class="form-group">
+                  <td>
+                    <label for="imageNew">Image Url*:</label>
+                  </td>
+                  <td>
+                    <input [(ngModel)]="newBook.images.main" formControlName="image" id="imagesNew" type="text" required>
+                    <div *ngIf="getImage.invalid && ( getImage.dirty || getImage.touched )">
+                      <div *ngIf="getImage.errors['required']">
+                        <p class="error">
+                          * Image Url is required.
+                        </p>
+                      </div>
+                    </div>
+                  </td>
+                </tr>
+                <tr class="form-group">
+                  <td>
+                    <label for="widthNew">Width:</label>
+                  </td>
+                  <td>
+                    <input [(ngModel)]="newBook.size.width" formControlName="width" id="widthNew" type="number" min="0">
+                  </td>
+                </tr>
+                <tr class="form-group">
+                  <td>
+                    <label for="heightNew">Height:</label>
+                  </td>
+                  <td>
+                    <input [(ngModel)]="newBook.size.height" formControlName="height" id="heightNew" type="number" min="0">
+                  </td>
+                </tr>
+                <tr class="form-group">
+                  <td>
+                    <label for="depthNew">Depth:</label>
+                  </td>
+                  <td>
+                    <input [(ngModel)]="newBook.size.depth" formControlName="depth" id="depthNew" type="number" min="0">
+                  </td>
+                </tr>
+              </table>
+            </div>
+          </form>
+        </div>
+      </div>
+      <div class="col-12">
+        <div class="d-flex justify-content-end">
+          <button type="submit" class="btn btn-info" [disabled]="bookForm.invalid" (click)="add();formDir.resetForm({})">Add</button>
+          <button type="button" data-dismiss="modal" class="btn btn-danger">Cancel</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

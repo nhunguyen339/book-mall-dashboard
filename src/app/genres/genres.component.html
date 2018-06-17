@@ -1,0 +1,106 @@
+<div class="row mt-5">
+    <div class="col-md-12">
+        <!--Card-->
+        <div class="card card-cascade narrower mt-5">
+            <!--Card image-->
+            <div class="view gradient-card-header blue darken-2">
+                <h4 class="h4-responsive text-white">Multitasking Genre</h4>
+            </div>
+            <!--/Card image-->
+            <!--Card content-->
+            <div class="card-body">
+
+                <h3 class="mt-5 text-left"><strong>Genres</strong></h3>
+                <p>Using the most basic table markup, here’s how .table-based tables look in Bootstrap. All table styles are
+                    inherited in Bootstrap 4, meaning any nested tables will be styled in the same manner as the parent.</p>
+                <button type="button" class="btn btn-secondary m-0 mb-3 float-right" data-toggle="modal" data-target=".add-genre">Add genre</button>
+
+                <div class="modal fade add-genre" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-lg">
+                    <div class="modal-content p-4">
+                        <div class="container">
+                            <div class="row text-center">
+                                <div class="col-12">
+                                <h2 class="pb-3">Add new Genre</h2>
+                                <label for="">Title:
+                                    <input type="text" class="py-2 px-3 ml-3" [(ngModel)]="name">
+                                </label>
+                                </div>
+                            </div>
+                            <div class="row float-right">
+                            <button type="button" class="btn btn-info" (click)="add()">Add</button>
+                            <button (click)="goBack()" type="button" class="btn btn-danger">Cancel</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                </div>
+                <table class="table table-striped">
+                    <thead class="darken-3 text-white">
+                        <tr>
+                            <th>#</th>
+                            <th>Title</th>
+                            <th colspan="2">Multitasking</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let genre of genres">
+                            <th scope="row">{{genre._id}}</th>
+                            <td >{{genre.name}}</td>
+                            <td class="w">
+                                <button (click)="onSelect(genre)" type="button" class="btn btn-info" data-toggle="modal" data-target=".update-genre">Update</button>
+
+                                <div class="modal fade update-genre" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+                                  <div class="modal-dialog modal-lg">
+                                    <div class="modal-content p-4">
+                                      <h2 class="pb-3 text-center">Update Genre</h2>
+                                        <div class="row">
+                                            <div class="col-12">
+                                                <div *ngIf="selectedGenre">
+                                                    <div class="text-center">
+                                                        <h2>{{selectedGenre.name | uppercase }}</h2>
+                                                        <label for=""> name:
+                                                          <input type="text" class="w-100 py-2 px-3 ml-3" [(ngModel)]="selectedGenre.name" >
+                                                        </label>
+                                                    </div>
+                                                    <div class="float-right">
+                                                        <button (click)="save()" class="btn btn-info float-right mt-4">Save</button>
+                                                        <button (click)="goBack()" class="btn btn-danger mt-4">Cancel</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                  </div>
+                                </div>
+                            </td>
+                            <td class="w">
+                                <button (click)="onSelect(genre)" type="button" class="btn btn-danger" data-toggle="modal" data-target=".detele-genre">Delete</button>
+
+                                <div class="modal fade detele-genre" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog modal-sm">
+                                        <div *ngIf="selectedGenre">
+                                            <div class="modal-content p-4">
+                                                <h2>Do you want to delete {{selectedGenre.name}}</h2>
+                                                <button (click)="delete(genre)"  type="button" class="btn btn-danger">Delete</button>
+                                                <button (click)="goBack()"  type="button" class="btn btn-danger">Cancel</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <!--/.Card content-->
+        </div>
+        <!--/.Card-->
+    </div>
+</div>
+
+
+
+
+
+
