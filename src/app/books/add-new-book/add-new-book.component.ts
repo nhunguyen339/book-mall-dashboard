@@ -13,26 +13,27 @@ import { forbiddenNameValidator } from '../../forbidden-name/forbidden-name-dire
   styleUrls: ['./add-new-book.component.scss']
 })
 export class AddNewBookComponent implements OnInit {
-  @Input() genres : Genre[];
+  @Input() genres: Genre[];
   @Input() books: Book[];
 
-  newBook : Book;
-  bookForm : FormGroup;
+  newBook: Book;
+  bookForm: FormGroup;
+  group: any ={};
 
   selectedGenre: Genre;
   selectedBook: Book;
 
-  
+
   images: Image;
   size: Size;
   genre: Genre;
-
+  selectedGenre_id: string;
   constructor(
     private bookService: BookService,
   ) { }
-  
+
   ngOnInit() {
-    
+
     this.newBook = new Book();
     this.newBook.title = "";
     this.newBook.author = "";
@@ -48,7 +49,7 @@ export class AddNewBookComponent implements OnInit {
     this.newBook.createDate = Date.now().toString();
     this.images = new Image("");
     this.newBook.images.main = "";
-    this.size = new Size(0,0,0);
+    this.size = new Size(0, 0, 0);
     this.newBook.size.depth = 0;
     this.newBook.size.height = 0;
     this.newBook.size.depth = 0;
@@ -56,7 +57,37 @@ export class AddNewBookComponent implements OnInit {
     this.newBook.genre = new Genre("")
     this.newBook.genre.name = "";
     console.log("hihi");
-    
+
+      // this.group.title = new FormControl(this.newBook.title, [
+      //   Validators.required,
+      //   Validators.maxLength(30),
+      //   forbiddenNameValidator(/bob/i)
+
+      // ]),
+      // this.group.author = new FormControl(this.newBook.author, Validators.required),
+      // this.group.publisher = new FormControl(this.newBook.publisher, Validators.required),
+      // // "genre": new FormControl(this.newBook.genre._id, Validators.required),
+
+      // this.group.image = new FormControl(this.newBook.images.main, Validators.required),
+      // this.group.previousPrice = new FormControl(this.newBook.previousPrice, [
+      //   Validators.required,
+      //   Validators.min(-1)
+      // ]),
+      // this.group.sellingPrice = new FormControl(this.newBook.sellingPrice, Validators.required),
+      // // ============not required : add FormControlName to reset form=====================
+      // this.group.pages = new FormControl(this.newBook.pages),
+      // this.group.weight = new FormControl(this.newBook.weight),
+      // this.group.shortDescription = new FormControl(this.newBook.shortDescription),
+      // this.group.fullDescription = new FormControl(this.newBook.fullDescription),
+      // this.group.sku = new FormControl(this.newBook.sku),
+      // this.group.releaseDate = new FormControl(this.newBook.releaseDate),
+      // this.group.createDate = new FormControl(this.newBook.createDate),
+      // this.group.width = new FormControl(this.newBook.size.width),
+      // this.group.depth = new FormControl(this.newBook.size.depth),
+      // this.group.height = new FormControl(this.newBook.size.height),
+      // this.group.genre = new FormControl(this.newBook.genre, Validators.required)
+      // this.bookForm = new FormGroup(this.group);
+
 
     this.bookForm = new FormGroup({
       "title": new FormControl(this.newBook.title, [
@@ -67,15 +98,16 @@ export class AddNewBookComponent implements OnInit {
       ]),
       "author": new FormControl(this.newBook.author, Validators.required),
       "publisher": new FormControl(this.newBook.publisher, Validators.required),
-      "genre": new FormControl(this.newBook.genre._id, Validators.required),
-      "image": new FormControl(this.newBook.images.main, Validators.required),
+      // "genre": new FormControl(this.newBook.genre._id, Validators.required),
+
+      "image_main": new FormControl(this.newBook.images.main, Validators.required),
       "previousPrice": new FormControl(this.newBook.previousPrice, [
         Validators.required,
-        Validators.min(-1)
+        Validators.min(0)
       ]),
       "sellingPrice": new FormControl(this.newBook.sellingPrice, Validators.required),
       // ============not required : add FormControlName to reset form=====================
-      "page" : new FormControl(this.newBook.pages),
+      "pages": new FormControl(this.newBook.pages),
       "weight": new FormControl(this.newBook.weight),
       "shortDescription": new FormControl(this.newBook.shortDescription),
       "fullDescription": new FormControl(this.newBook.fullDescription),
@@ -84,76 +116,61 @@ export class AddNewBookComponent implements OnInit {
       "createDate": new FormControl(this.newBook.createDate),
       "width": new FormControl(this.newBook.size.width),
       "depth": new FormControl(this.newBook.size.depth),
-      "height": new FormControl(this.newBook.size.height)
+      "height": new FormControl(this.newBook.size.height),
+      "genre": new FormControl(this.newBook.genre, Validators.required),
+      // "genre_id": new FormControl(this.newBook.genre._id),
+      // "genre_id" : this.bookForm.value.genre._id,
     })
-    
+
   }
   // ===============Validation========
-  get getTitle() { return this.bookForm.get("title") }; 
-  get getAuthor() { return this.bookForm.get("author")};
-  get getPublisher() {return this.bookForm.get("publisher")};
-  get getGenre() {return this.bookForm.get("genre")};
-  get getImage(){ return this.bookForm.get("image") };
+  get getTitle() { return this.bookForm.get("title") };
+  get getAuthor() { return this.bookForm.get("author") };
+  get getPublisher() { return this.bookForm.get("publisher") };
+   getGenre_id() {
+    return this.bookForm.get("genre") };
+  get getImage() { return this.bookForm.get("image_main") };
   get getPreviousPrice() { return this.bookForm.get("previousPrice") };
-  get getSellingPrice() { return this.bookForm.get("sellingPrice") }
-// ==================================
+  get getSellingPrice() { return this.bookForm.get("sellingPrice") };
+  // ==================================
 
+  // onSelectGenre(genre):void {
+  //   this.selectedGenre = genre;
+  // }
+  // genre_id
+  // errorGenre():boolean {
+  //   this.genre_id = this.bookForm.value.genre._id;
+  //   if ( this.genre_id.invalid && (this.genre_id.dirty || this.genre_id.touched) ) {
+  //     return true;
+  //   }
+  // }
 
-
-
-  onSelectGenre(genre:Genre):void {
-    this.newBook.genre = genre;
+  onSave(): void {
+    // gan gia tri bookForm cho newBook
+    this.newBook.title = this.bookForm.value.title;
+    this.newBook.author = this.bookForm.value.author;
+    this.newBook.publisher = this.bookForm.value.publisher;
+    this.newBook.images.main = this.bookForm.value.image_main;
+    this.newBook.previousPrice = this.bookForm.value.previousPrice;
+    this.newBook.sellingPrice = this.bookForm.value.sellingPrice;
+    this.newBook.pages = this.bookForm.value.pages;
+    this.newBook.weight = this.bookForm.value.weight;
+    this.newBook.shortDescription = this.bookForm.value.shortDescription;
+    this.newBook.sku = this.bookForm.value.sku;
+    this.newBook.createDate = this.bookForm.value.createDate;
+    this.newBook.releaseDate = this.bookForm.value.releaseDate;
+    this.newBook.size.depth = this.bookForm.value.depth;
+    this.newBook.size.width = this.bookForm.value.width;
+    this.newBook.size.height = this.bookForm.value.height;
+    // have to choose genre (FormControl) because that genre is binding in formControlName
+    this.newBook.genre._id = this.bookForm.value.genre._id;
+    this.newBook.genre.name = this.bookForm.value.genre.name;
+    this.add(); console.log("nhu");
   }
-
-  onSelectBook(book :Book):void {
-    this.selectedBook = book;
-  }
-
-
 
   add(): void {
-    if ( this.newBook.title.length > 0 ) {
-      // let size = new Size(
-      //   this.width,
-      //   this.height,
-      //   this.weight
-      // )
-      // this.size = size;
-        
-      // let images = new Image (
-      //   this.main
-      // );
-      // this.images = images;
-
-
-      // let selectedGenre = new Genre(
-      //   this.name,
-      //   this._id
-      // )
-      // this.selectedGenre = selectedGenre;
-      
-
-      
-      this.bookService.addBook(this.newBook)
-        .subscribe( book =>
-        {
-        this.books.push(book)
-      }
-      )
-    }
+    this.bookService.addBook(this.newBook)
+      .subscribe()
   }
-
- save():void {
-   this.bookService.updateBook(this.selectedBook).subscribe();
- }
-
-
- goBack() {
-  // return this.location.back();
-}
-
-
-
-
 
 }

@@ -30,6 +30,7 @@ import { BannerService } from './models/banner.service';
 import { NgxEditorModule } from 'ngx-editor';
 import { AngularFontAwesomeModule } from 'angular-font-awesome';
 import { UserComponent } from './user/user.component';
+import { GenreValidator } from './genre-required/genre-required.directive';
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true,
   wheelSpeed: 2,
@@ -47,6 +48,7 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     BooksComponent,
     AddNewBookComponent,
     ForbiddenValidatorDirective,
+    GenreValidator,
     GenresComponent,
     UserComponent
   ],

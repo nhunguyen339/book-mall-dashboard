@@ -74,9 +74,9 @@ try : string;
   }
 
   onSelectBook(book: Book): void {
-    this.selectedBook = new Book();
+    // this.selectedBook = new Book();
     this.selectedBook = book;
-    if (this.selectedBook.images == null) {
+    if (this.selectedBook.images.main == null) {
       this.selectedBook.images = new Image("");
     }
     if (this.selectedBook.size == null) {
@@ -90,10 +90,10 @@ try : string;
         Validators.required,
         Validators.maxLength(20)
       ]),
-      "genre": new FormControl(this.selectedBook.genre.name, Validators.required),
+      "genre": new FormControl(this.selectedBook.genre, Validators.required),
       "author": new FormControl(this.selectedBook.author, Validators.required),
       "publisher": new FormControl(this.selectedBook.publisher, Validators.required),
-      "image": new FormControl(this.selectedBook.images.main, Validators.required),
+      "image_main": new FormControl(this.selectedBook.images.main, Validators.required),
       "sellingPrice": new FormControl(this.selectedBook.sellingPrice, Validators.required),
       "previousPrice": new FormControl(this.selectedBook.previousPrice, Validators.required),
 
@@ -105,24 +105,54 @@ try : string;
       "sku": new FormControl(this.selectedBook.sku),
       "releaseDate": new FormControl(this.selectedBook.releaseDate),
       "createDate": new FormControl(this.selectedBook.createDate),
-      "width": new FormControl(this.selectedBook.size.width),
-      "height": new FormControl(this.selectedBook.size.height),
-      "depth": new FormControl(this.selectedBook.size.depth)
+      "size_width": new FormControl(this.selectedBook.size.width),
+      "size_height": new FormControl(this.selectedBook.size.height),
+      "size_depth": new FormControl(this.selectedBook.size.depth)
 
     })
-
-
+    console.log('select')
 
   }
+
+
   get getTitle() { return this.formBookUpdate.get("title") };
   get getGenre() { return this.formBookUpdate.get("genre") };
-  get getImage() { return this.formBookUpdate.get("image") };
+  get getImage() { return this.formBookUpdate.get("image_main") };
   get getAuthor() { return this.formBookUpdate.get("author") };
   get getPublisher() { return this.formBookUpdate.get("publisher") };
   get getSellingPrice() { return this.formBookUpdate.get("sellingPrice") };
   get getPreviousPrice() { return this.formBookUpdate.get("previousPrice") };
 
 
+  onSubmit():void {
+    this.selectedBook.title = this.formBookUpdate.value.title;
+    this.selectedBook.author = this.formBookUpdate.value.author;
+    this.selectedBook.publisher = this.formBookUpdate.value.publisher;
+    this.selectedBook.genre._id = this.formBookUpdate.value.genre._id;
+    this.selectedBook.genre.name = this.formBookUpdate.value.genre.name;
+    this.selectedBook.images.main = this.formBookUpdate.value.image_main;
+    this.selectedBook.sellingPrice = this.formBookUpdate.value.sellingPrice;
+    this.selectedBook.previousPrice = this.formBookUpdate.value.previousPrice;
+    this.selectedBook.pages = this.formBookUpdate.value.pages;
+    this.selectedBook.weight = this.formBookUpdate.value.weight;
+    this.selectedBook.shortDescription = this.formBookUpdate.value.shortDescription;
+    this.selectedBook.fullDescription = this.formBookUpdate.value.fullDescription;
+    this.selectedBook.sku = this.formBookUpdate.value.sku;
+    this.selectedBook.releaseDate = this.formBookUpdate.value.releaseDate;
+    this.selectedBook.createDate = this.formBookUpdate.value.createDate;
+    this.selectedBook.size.width = this.formBookUpdate.value.size_width;
+    this.selectedBook.size.depth = this.formBookUpdate.value.size_depth;
+    this.selectedBook.size.height =this.formBookUpdate.value.size_height;
+    this.save();
+  }
+
+  save(): void {
+    this.bookService.updateBook(this.selectedBook).subscribe();
+    console.log('save')
+  }
+  test():void {
+    console.log('test');
+  }
 
   goBack() {
     return this.location.back();
@@ -146,9 +176,7 @@ try : string;
     )
   }
 
-  save(): void {
-    this.bookService.updateBook(this.selectedBook).subscribe();
-  }
+
 
 
   compareFn(optionOne: Genre, optionTwo: Genre): boolean {
