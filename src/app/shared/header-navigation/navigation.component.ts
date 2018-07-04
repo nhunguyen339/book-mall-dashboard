@@ -1,36 +1,47 @@
-import { Component, AfterViewInit } from '@angular/core';
-import { NgbModal, ModalDismissReasons, NgbPanelChangeEvent, NgbCarouselConfig } from '@ng-bootstrap/ng-bootstrap';
-declare var $: any;
-@Component({
-  selector: 'ap-navigation',
-  templateUrl: './navigation.component.html'
-})
-export class NavigationComponent implements AfterViewInit {
-	name:string;
-  	constructor(private modalService: NgbModal) {
-    	
-    }
-      
-    ngAfterViewInit() {
-        
-        var set = function() {
-            var width = (window.innerWidth > 0) ? window.innerWidth : this.screen.width;
-            var topOffset = 0;
-            if (width < 1170) {
-                $("#main-wrapper").addClass("mini-sidebar");
-            } else {
-                $("#main-wrapper").removeClass("mini-sidebar");
-            }
-        };
-        $(window).ready(set);
-        $(window).on("resize", set);
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { AuthenticationService } from '../../models/login-logout/authentication.service';
+import { UserService } from '../../models/login-logout/user.service';
+import { first } from 'rxjs/operators';
+import { User } from '../../models/login-logout/user';
+import { LoginStatusService } from '../../models/login-logout/login-status.service';
+import { Subscription } from 'rxjs';
 
-        
-        $(".search-box a, .search-box .app-search .srh-btn").on('click', function () {
-            $(".app-search").toggle(200);
-        });
-        
-        
-        $("body").trigger("resize");
+@Component({
+    selector: 'ap-navigation',
+    templateUrl: './navigation.component.html'
+})
+export class NavigationComponent implements OnInit{
+    userNew: User = new User();
+    status : Boolean;
+    loginStatus : Subscription;
+
+    constructor(
+        private authenticationService: AuthenticationService,
+        private userService: UserService,
+        private loginStatusService: LoginStatusService,
+    ) {
+        this.loginStatus = this.loginStatusService.status$.subscribe(
+            status => {
+                this.status = status;
+                this.userNew = JSON.parse(localStorage.getItem('currentUser'));
+                console.log(this.userNew)
+            }
+        );
+        this.getUser();
     }
+    
+    ngOnInit() {
+        
+    }
+   
+
+    logout(): void {
+        this.authenticationService.logout();
+    }
+    getUser(): void {
+        this.userService.getAll().pipe(first()).subscribe(_ =>
+            this.userNew = _.user)
+            console.log('getUser')
+    }
+  
 }

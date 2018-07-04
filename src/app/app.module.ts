@@ -4,7 +4,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CommonModule, LocationStrategy, HashLocationStrategy } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { HttpClientModule, HttpClient } from '@angular/common/http';
+import { HttpClientModule, HttpClient, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { Routes, RouterModule } from '@angular/router';
 
 import { FullComponent } from './layouts/full/full.component';
@@ -31,6 +31,14 @@ import { NgxEditorModule } from 'ngx-editor';
 import { AngularFontAwesomeModule } from 'angular-font-awesome';
 import { UserComponent } from './user/user.component';
 import { GenreValidator } from './genre-required/genre-required.directive';
+import { LoginComponent } from './login/login.component';
+import { SignoutComponent } from './signout/signout.component';
+import { AuthGuard } from './models/login-logout/auth.guard';
+import { AuthenticationService } from './models/login-logout/authentication.service';
+import { UserService } from './models/login-logout/user.service';
+import { JwtInterceptor } from './models/login-logout/jwt.interceptor';
+import { AccountComponent } from './account/account.component';
+import { LoginStatusService } from './models/login-logout/login-status.service';
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true,
   wheelSpeed: 2,
@@ -50,7 +58,10 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     ForbiddenValidatorDirective,
     GenreValidator,
     GenresComponent,
-    UserComponent
+    UserComponent,
+    LoginComponent,
+    SignoutComponent,
+    AccountComponent
   ],
   imports: [
     AngularFontAwesomeModule,
@@ -69,6 +80,15 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     GenreService,
     BookService,
     BannerService,
+    AuthGuard,
+    AuthenticationService,
+    UserService,
+    LoginStatusService,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: JwtInterceptor,
+      multi: true
+    },
       {
       provide: PERFECT_SCROLLBAR_CONFIG,
       useValue: DEFAULT_PERFECT_SCROLLBAR_CONFIG

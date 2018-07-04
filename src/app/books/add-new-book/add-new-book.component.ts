@@ -46,16 +46,15 @@ export class AddNewBookComponent implements OnInit {
     this.newBook.sku = "";
     this.newBook.previousPrice = 0;
     this.newBook.sellingPrice = 0;
-    this.newBook.createDate = Date.now().toString();
     this.images = new Image("");
     this.newBook.images.main = "";
     this.size = new Size(0, 0, 0);
     this.newBook.size.depth = 0;
     this.newBook.size.height = 0;
     this.newBook.size.depth = 0;
-    this.genre = new Genre("");
+    // this.genre = new Genre("");
     this.newBook.genre = new Genre("")
-    this.newBook.genre.name = "";
+    // this.newBook.genre.name = "";
     console.log("hihi");
 
       // this.group.title = new FormControl(this.newBook.title, [
@@ -90,34 +89,34 @@ export class AddNewBookComponent implements OnInit {
 
 
     this.bookForm = new FormGroup({
-      "title": new FormControl(this.newBook.title, [
+      "title": new FormControl('', [
         Validators.required,
         Validators.maxLength(30),
         forbiddenNameValidator(/bob/i)
 
       ]),
-      "author": new FormControl(this.newBook.author, Validators.required),
-      "publisher": new FormControl(this.newBook.publisher, Validators.required),
+      "author": new FormControl('', Validators.required),
+      "publisher": new FormControl('', Validators.required),
       // "genre": new FormControl(this.newBook.genre._id, Validators.required),
 
-      "image_main": new FormControl(this.newBook.images.main, Validators.required),
-      "previousPrice": new FormControl(this.newBook.previousPrice, [
+      "image_main": new FormControl('', Validators.required),
+      "previousPrice": new FormControl('', [
         Validators.required,
         Validators.min(0)
       ]),
-      "sellingPrice": new FormControl(this.newBook.sellingPrice, Validators.required),
+      "sellingPrice": new FormControl('', Validators.required),
       // ============not required : add FormControlName to reset form=====================
-      "pages": new FormControl(this.newBook.pages),
-      "weight": new FormControl(this.newBook.weight),
-      "shortDescription": new FormControl(this.newBook.shortDescription),
-      "fullDescription": new FormControl(this.newBook.fullDescription),
-      "sku": new FormControl(this.newBook.sku),
-      "releaseDate": new FormControl(this.newBook.releaseDate),
-      "createDate": new FormControl(this.newBook.createDate),
-      "width": new FormControl(this.newBook.size.width),
-      "depth": new FormControl(this.newBook.size.depth),
-      "height": new FormControl(this.newBook.size.height),
-      "genre": new FormControl(this.newBook.genre, Validators.required),
+      "pages": new FormControl(''),
+      "weight": new FormControl(''),
+      "shortDescription": new FormControl(''),
+      "fullDescription": new FormControl(''),
+      "sku": new FormControl(''),
+      "releaseDate": new FormControl(''),
+      "createDate": new FormControl(''),
+      "width": new FormControl(''),
+      "depth": new FormControl(''),
+      "height": new FormControl(''),
+      "genre": new FormControl(''),
       // "genre_id": new FormControl(this.newBook.genre._id),
       // "genre_id" : this.bookForm.value.genre._id,
     })
@@ -127,7 +126,7 @@ export class AddNewBookComponent implements OnInit {
   get getTitle() { return this.bookForm.get("title") };
   get getAuthor() { return this.bookForm.get("author") };
   get getPublisher() { return this.bookForm.get("publisher") };
-   getGenre_id() {
+  get getGenre() {
     return this.bookForm.get("genre") };
   get getImage() { return this.bookForm.get("image_main") };
   get getPreviousPrice() { return this.bookForm.get("previousPrice") };

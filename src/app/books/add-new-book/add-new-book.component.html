@@ -36,18 +36,20 @@
                   <td>
                     <label for="genreNew">Genre*:</label>
                   </td>
-                  <td> <p>{{bookForm.value.genre.name}}</p>
-                    <p>{{bookForm.value.genre._id}}</p>
-                    <select  id="genreNew" formControlName="genre" required>
+                  <td>
+                    <!-- <p>{{bookForm.value.genre.name}}</p>
+                    <p>{{bookForm.value.genre._id}}</p> -->
+                    <select id="genreNew" formControlName="genre" required>
                       <option *ngFor="let genre of genres" [ngValue]="genre">{{genre.name}}</option>
                     </select>
-                    <div *ngIf="getGenre_id(bookForm.value.genre._id).invalid && (getGenre_id(bookForm.value.genre._id).dirty || getGenre_id(bookForm.value.genre._id).touched)">
-                      <div *ngIf="getGenre_id(bookForm.value.genre._id).errors['required']">
+                    <div *ngIf="getGenre.invalid && (getGenre.dirty || getGenre.touched)">
+                      <div *ngIf="getGenre.errors['required']">
                         <p class="error">
                           * Genre is required.
                         </p>
                       </div>
                     </div>
+                    <!-- <div>{{bookForm.value.genre | json}}</div> -->
                   </td>
                 </tr>
                 <tr class="form-group">
@@ -55,7 +57,7 @@
                     <label for="publisherNew">Author*:</label>
                   </td>
                   <td>
-                    <input  formControlName="author" id="publisherNew" type="text">
+                    <input formControlName="author" id="publisherNew" type="text">
                     <div *ngIf="getAuthor.invalid && (getAuthor.dirty || getAuthor.touched)">
                       <div *ngIf="getAuthor.errors['required']">
                         <p class="error">
@@ -117,7 +119,7 @@
                     <label for="fullDescriptionNew">Full Description:</label>
                   </td>
                   <td>
-                    <app-ngx-editor [spellcheck]="true"  formControlName="fullDescription" id="fullDescriptionNew"></app-ngx-editor>
+                    <app-ngx-editor [spellcheck]="true" formControlName="fullDescription" id="fullDescriptionNew"></app-ngx-editor>
                   </td>
                 </tr>
                 <tr class="form-group">
@@ -133,7 +135,7 @@
                     <label for="previousPriceNew">Previous Price*:</label>
                   </td>
                   <td>
-                    <input  formControlName="previousPrice" id="previousPriceNew" type="number" min="-1">
+                    <input formControlName="previousPrice" id="previousPriceNew" type="number" min="-1">
                     <div *ngIf="getPreviousPrice.invalid && ( getPreviousPrice.dirty || getPreviousPrice.touched )">
                       <div *ngIf="getPreviousPrice.errors['required']">
                         <p class="error">
@@ -167,7 +169,7 @@
                     <label for="imageNew">Image Url*:</label>
                   </td>
                   <td>
-                    <input  formControlName="image_main" id="imagesNew" type="text" required>
+                    <input formControlName="image_main" id="imagesNew" type="text" required>
                     <div *ngIf="getImage.invalid && ( getImage.dirty || getImage.touched )">
                       <div *ngIf="getImage.errors['required']">
                         <p class="error">
@@ -182,7 +184,7 @@
                     <label for="widthNew">Width:</label>
                   </td>
                   <td>
-                    <input  formControlName="width" id="widthNew" type="number" min="0">
+                    <input formControlName="width" id="widthNew" type="number" min="0">
                   </td>
                 </tr>
                 <tr class="form-group">
@@ -190,7 +192,7 @@
                     <label for="heightNew">Height:</label>
                   </td>
                   <td>
-                    <input  formControlName="height" id="heightNew" type="number" min="0">
+                    <input formControlName="height" id="heightNew" type="number" min="0">
                   </td>
                 </tr>
                 <tr class="form-group">
@@ -198,7 +200,7 @@
                     <label for="depthNew">Depth:</label>
                   </td>
                   <td>
-                    <input  formControlName="depth" id="depthNew" type="number" min="0">
+                    <input formControlName="depth" id="depthNew" type="number" min="0">
                   </td>
                 </tr>
               </table>
@@ -208,7 +210,7 @@
       </div>
       <div class="col-12">
         <div class="d-flex justify-content-end">
-          <button type="submit" class="btn btn-info mr-3"  (click)="onSave()">Add</button>
+          <button type="submit" class="btn btn-info mr-3" (click)="onSave()">Add</button>
           <button type="button" data-dismiss="modal" (click)="formDir.resetForm({})" class="btn btn-danger">Cancel</button>
         </div>
       </div>
