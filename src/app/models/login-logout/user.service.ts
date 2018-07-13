@@ -22,7 +22,8 @@ export class UserService {
   // tự động tạo thêm cái element khác trong Users
 
   createUser(user : User ): Observable<User> {
-    return this.http.post<User>(this.usersUrl, user, httpOption )
+    return this.http.post<User>(this.usersUrl, user, httpOption ).pipe()
   }
 
+ 
 }

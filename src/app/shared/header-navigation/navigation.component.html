@@ -31,11 +31,31 @@
             <!-- toggle and nav items -->
             <!-- ============================================================== -->
             <ul class="navbar-nav mr-auto mt-md-0 ">
-                <!-- This is  -->
                 <li class="nav-item m-l-10">
-                    <a class="nav-link sidebartoggler hidden-lg-up text-muted waves-effect waves-dark" href="javascript:void(0)">
-                        <i class="ti-menu"></i>
-                    </a>
+                    <div class="uk-offcanvas-content">
+
+                        <button class="uk-button uk-button-default uk-margin-small-right" type="button" uk-toggle="target: #offcanvas-slide">menu</button>
+                    
+                        <div id="offcanvas-slide" uk-offcanvas="overlay: false">
+                            <div class="uk-offcanvas-bar">
+                    
+                                <button class="uk-offcanvas-close" type="button" uk-close></button>
+                    
+                                    <ul class="ins-sidebar">
+                                        <li>
+                                            {{userNew.first}}
+                                        </li>
+                                        <li>
+                                            <a routerLink="/admin/books" class="ins-a-brand" routerLinkActive="active">Books</a>
+                                        </li>
+                                        <li>
+                                            <a routerLink="/admin/genres" class="ins-a-brand" routerLinkActive="active">Genres</a>
+                                        </li>
+                                    </ul>
+                    
+                            </div>
+                        </div>
+                    </div>
                 </li>
             </ul>
             <!-- ============================================================== -->
@@ -45,16 +65,21 @@
                 <!-- ============================================================== -->
                 <!-- Search -->
                 <!-- ============================================================== -->
-                <li class="nav-item hidden-sm-down search-box">
-                    <a class="nav-link hidden-sm-down text-muted waves-effect waves-dark" href="javascript:void(0)">
-                        <i class="ti-search"></i>
-                    </a>
-                    <form class="app-search">
-                        <input type="text" class="form-control" placeholder="Search & enter">
-                        <a class="srh-btn">
-                            <i class="ti-close"></i>
-                        </a>
-                    </form>
+                <li class="nav-item  search-box">
+                    <nav  uk-navbar>
+                        <div class="uk-navbar-right">
+                    
+                            <div>
+                                <a class="uk-navbar-toggle" uk-search-icon href="#"></a>
+                                <div class="uk-drop" uk-drop="mode: click; pos: left-center; offset: 0">
+                                    <form class="uk-search uk-search-navbar uk-width-1-1">
+                                        <input class="uk-search-input" type="search" placeholder="Search..." autofocus>
+                                    </form>
+                                </div>
+                            </div>
+                    
+                        </div>
+                    </nav>
                 </li>
                 <!-- ============================================================== -->
                 <!-- Profile -->
@@ -62,11 +87,11 @@
                 <li class="nav-item d-flex align-items-center">
                     <!-- <button class="uk-button uk-button-default" type="button"></button> -->
                     <div class="d-flex">
-                        <a routerLink="/account" class="pr-1 py-0 ins-a-brand">
+                        <a routerLink="/admin/account" class="pr-1 py-0 ins-a-brand">
                             <i class="material-icons">account_circle</i>
                         </a>
                         <small>
-                            <a routerLink="/account" class="nav-link ins-a-brand px-0 my-0">
+                            <a routerLink="/admin/account" class="nav-link ins-a-brand px-0 my-0">
                                 <div *ngIf="userNew">
                                     {{userNew.first}}
                                 </div>
@@ -76,13 +101,7 @@
                     <div uk-dropdown="animation: uk-animation-slide-top-small; duration: 800">
                         <ul class="uk-nav uk-dropdown-nav">
                             <li class="uk">
-                                <a routerLinkActive="active" routerLink="/account">Account</a>
-                            </li>
-                            <li class="uk">
-                                <a routerLinkActive="active" routerLink="/login">Login</a>
-                            </li>
-                            <li class="uk">
-                                <a routerLinkActive="active" routerLink="/singout">Singout</a>
+                                <a routerLinkActive="active" routerLink="/admin/account">Account</a>
                             </li>
                             <li class="uk-active">
                                 <a routerLinkActive="active" (click)="logout()" routerLink="/login">Logout</a>

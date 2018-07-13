@@ -43,7 +43,7 @@
     <div class="col-6">
       <div class="wrapper-login">
         <h4 class=" ins-bg-second text-white p-2 mb-3">Registered Custumer</h4>
-        <form [formGroup]="loginForm" (ngSubmit)="onSubmit(true)">
+        <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
           <div class="form-group">
             <label for="username">Username</label>
             <input type="text" formControlName="username" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.username.errors }"
@@ -68,7 +68,7 @@
           <div *ngIf="error" class="alert alert-danger">{{error.error.error | json}}</div>
         </form>
         <div>
-          <a class="ins-a-brand">Thành viên mới? Đăng Kí tại đây.</a>
+          <a class="ins-a-brand">Tạo thành viên mới? Đăng Kí tại đây.</a>
           <br>
           <span>nhu123@gmail.com</span>
           <br>

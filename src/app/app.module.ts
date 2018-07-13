@@ -10,7 +10,6 @@ import { Routes, RouterModule } from '@angular/router';
 import { FullComponent } from './layouts/full/full.component';
 
 import { NavigationComponent } from './shared/header-navigation/navigation.component';
-import { SidebarComponent } from './shared/sidebar/sidebar.component';
 import { BreadcrumbComponent } from './shared/breadcrumb/breadcrumb.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
@@ -32,7 +31,6 @@ import { AngularFontAwesomeModule } from 'angular-font-awesome';
 import { UserComponent } from './user/user.component';
 import { GenreValidator } from './genre-required/genre-required.directive';
 import { LoginComponent } from './login/login.component';
-import { SignoutComponent } from './signout/signout.component';
 import { AuthGuard } from './models/login-logout/auth.guard';
 import { AuthenticationService } from './models/login-logout/authentication.service';
 import { UserService } from './models/login-logout/user.service';
@@ -52,7 +50,6 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     FullComponent,
     NavigationComponent,
     BreadcrumbComponent,
-    SidebarComponent,
     BooksComponent,
     AddNewBookComponent,
     ForbiddenValidatorDirective,
@@ -60,7 +57,6 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     GenresComponent,
     UserComponent,
     LoginComponent,
-    SignoutComponent,
     AccountComponent
   ],
   imports: [

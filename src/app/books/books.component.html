@@ -1,4 +1,4 @@
-<div class="row mt-5">
+<div class="row">
   <div class="col-md-12">
     <!--Card-->
     <div class="card card-cascade narrower mt-5">
@@ -56,9 +56,6 @@
                                       <div *ngIf="getTitle.invalid && (getTitle.dirty || getTitle.touched)">
                                         <div *ngIf="getTitle.errors['required']">
                                           <p class="error">* Title is required.</p>
-                                        </div>
-                                        <div *ngIf="getTitle.errors['maxlength']">
-                                          <p class="error">Title's maxlength is 30.</p>
                                         </div>
                                       </div>
                                     </td>

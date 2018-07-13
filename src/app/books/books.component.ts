@@ -87,8 +87,7 @@ try : string;
     // ================ khac so voi tao newBook tại vì để ở đây thì khi nó nhấn update thì mới có selectedBook để tạo chứ =================
     this.formBookUpdate = new FormGroup({
       "title": new FormControl(this.selectedBook.title, [
-        Validators.required,
-        Validators.maxLength(20)
+        Validators.required
       ]),
       "genre": new FormControl(this.selectedBook.genre, Validators.required),
       "author": new FormControl(this.selectedBook.author, Validators.required),
@@ -150,13 +149,7 @@ try : string;
     this.bookService.updateBook(this.selectedBook).subscribe();
     console.log('save')
   }
-  test():void {
-    console.log('test');
-  }
 
-  goBack() {
-    return this.location.back();
-  }
 
   //  ============books===========
 
@@ -193,11 +186,6 @@ try : string;
     this.genreService.getGenres()
       .subscribe(genres => this.genres = genres)
   }
-}  // getGenre():void {
-  //   let id: string;
-  //   id = this.route.snapshot.paramMap.get('_id');
-  //   this.genreService.getGenre(id)
-  //     .subscribe( genre => this.genre =genre );
-  // }
+}
 
 

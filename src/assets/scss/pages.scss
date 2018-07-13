@@ -30,9 +30,7 @@ File: scss
 }
 
 .page-wrapper {
-  background: $bodycolor;
   padding-bottom: 60px;
-  height: calc(100vh - 64px); 
   position: relative;
     overflow: auto;
 }

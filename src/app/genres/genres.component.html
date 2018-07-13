@@ -29,7 +29,7 @@
                             </div>
                             <div class="row float-right">
                             <button type="button" class="btn btn-info" (click)="add()">Add</button>
-                            <button type="button" class="btn btn-danger">Cancel</button>
+                            <button type="button" class="btn btn-danger ml-4">Cancel</button>
                             </div>
                         </div>
                     </div>
@@ -64,8 +64,8 @@
                                                         </label>
                                                     </div>
                                                     <div class="float-right">
-                                                        <button (click)="save()" class="btn btn-info float-right mt-4">Save</button>
-                                                        <button data-dismiss="modal" class="btn btn-danger ml-4">Cancel</button>
+                                                        <button (click)="save()" class="btn btn-info float-right ">Save</button>
+                                                        <button data-dismiss="modal" class="btn btn-danger mr-4">Cancel</button>
                                                     </div>
                                                 </div>
                                             </div>
@@ -82,8 +82,8 @@
                                         <div *ngIf="selectedGenre">
                                             <div class="modal-content p-4">
                                                 <h2>Do you want to delete {{selectedGenre.name}}</h2>
-                                                <button (click)="delete(genre)"  type="button" class="btn btn-danger">Delete</button>
-                                                <button (click)="goBack()"  type="button" class="btn btn-danger ml-3">Cancel</button>
+                                                <button (click)="delete(genre)"  type="button" class="btn btn-info">Delete</button>
+                                                <button (click)="goBack()"  type="button" class="btn btn-danger mt-3">Cancel</button>
                                             </div>
                                         </div>
                                     </div>

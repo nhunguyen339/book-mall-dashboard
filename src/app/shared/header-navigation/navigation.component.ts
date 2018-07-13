@@ -5,6 +5,8 @@ import { first } from 'rxjs/operators';
 import { User } from '../../models/login-logout/user';
 import { LoginStatusService } from '../../models/login-logout/login-status.service';
 import { Subscription } from 'rxjs';
+import { GenreService } from '../../models/genre.service';
+import { BannerService } from '../../models/banner.service';
 
 @Component({
     selector: 'ap-navigation',
@@ -12,36 +14,55 @@ import { Subscription } from 'rxjs';
 })
 export class NavigationComponent implements OnInit{
     userNew: User = new User();
-    status : Boolean;
-    loginStatus : Subscription;
-
+    status: Boolean;
+    statusUser: Boolean = false;
+  
+    public itemCount: number;
+  
     constructor(
-        private authenticationService: AuthenticationService,
-        private userService: UserService,
-        private loginStatusService: LoginStatusService,
+      private userService: UserService,
+      private loginStatusService: LoginStatusService,
+      private authenticationService: AuthenticationService
     ) {
-        this.loginStatus = this.loginStatusService.status$.subscribe(
-            status => {
-                this.status = status;
-                this.userNew = JSON.parse(localStorage.getItem('currentUser'));
-                console.log(this.userNew)
-            }
-        );
-        this.getUser();
+      loginStatusService.status$.subscribe(
+        status => {
+          this.status = status;
+          if (status) {
+            this.getUser();
+          }
+          this.userNew = JSON.parse(localStorage.getItem('currentUser'));
+          console.log(this.status);
+        }
+      );
+   
     }
-    
-    ngOnInit() {
-        
+  
+    ngOnInit(): void {
+      this.checkToken();
+    }
+  
+  
+ 
+    checkToken() {
+      if ( localStorage.getItem('currentUser')) {
+        this.statusUser = true;
+        this.loginStatusService.setStatus(this.statusUser);
+        this.getUser();
+      } else {
+        this.loginStatusService.setStatus(this.statusUser);
+      }
+      console.log('check')
     }
    
-
-    logout(): void {
-        this.authenticationService.logout();
-    }
     getUser(): void {
         this.userService.getAll().pipe(first()).subscribe(_ =>
             this.userNew = _.user)
             console.log('getUser')
     }
+    logout(): void {
+        this.authenticationService.logout();
+        this.loginStatusService.setStatus(false);
+        console.log('logout')
+      }
   
 }

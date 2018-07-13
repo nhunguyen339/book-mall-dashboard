@@ -2134,3 +2134,11 @@ Layouts
     display: inline-block;
     vertical-align: middle;
 }
+.uk-search-navbar .uk-search-input::placeholder  {
+    font-size: 14px;
+}
+
+.uk-search-navbar .uk-search-input{
+    width: 140px;
+    float: right;
+} 

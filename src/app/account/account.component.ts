@@ -12,7 +12,6 @@ import { LoginStatusService } from '../models/login-logout/login-status.service'
 })
 export class AccountComponent implements OnInit {
   userNew: User = new User();
-  status : Boolean
   constructor(
     private userService: UserService,
     private authenticationService: AuthenticationService,
@@ -26,15 +25,12 @@ export class AccountComponent implements OnInit {
   }
   logout(): void {
     this.authenticationService.logout();
+    this.loginStatusService.setStatus(false);
     console.log('logout')
   }
   getUser():void {
     this.userService.getAll().pipe(first()).subscribe(_ =>
       this.userNew = _.user)
-  }
-  test() {
-    this.loginStatusService.setStatus(true);
-    console.log('test')
   }
 
 }

@@ -25,7 +25,7 @@ export class Book {
   constructor( 
   
    ) {
-     this.title = "hihid";
+     this.title = "";
      this.author = "";
      this.publisher = "";
      this.pages = 0;
