@@ -69,9 +69,9 @@ try : string;
   // ==============Validation======
 
 
-  onSelectGenre(genre: Genre): void {
-    this.selectedGenre = genre;
-  }
+  // onSelectGenre(genre: Genre): void {
+  //   this.selectedGenre = genre;
+  // }
 
   onSelectBook(book: Book): void {
     // this.selectedBook = new Book();
@@ -82,8 +82,6 @@ try : string;
     if (this.selectedBook.size == null) {
       this.selectedBook.size = new Size(0, 0, 0);
     }
-
-
     // ================ khac so voi tao newBook tại vì để ở đây thì khi nó nhấn update thì mới có selectedBook để tạo chứ =================
     this.formBookUpdate = new FormGroup({
       "title": new FormControl(this.selectedBook.title, [
@@ -173,8 +171,8 @@ try : string;
 
 
   compareFn(optionOne: Genre, optionTwo: Genre): boolean {
-    optionOne = new Genre("");
-    optionTwo = new Genre("");
+    optionTwo 
+    optionOne  
     return optionOne._id === optionTwo._id;
   }
 

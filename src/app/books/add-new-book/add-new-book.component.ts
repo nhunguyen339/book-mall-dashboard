@@ -91,7 +91,7 @@ export class AddNewBookComponent implements OnInit {
     this.bookForm = new FormGroup({
       "title": new FormControl('', [
         Validators.required,
-        Validators.maxLength(30),
+        // Validators.maxLength(30),
         forbiddenNameValidator(/bob/i)
 
       ]),

@@ -37,6 +37,7 @@ import { UserService } from './models/login-logout/user.service';
 import { JwtInterceptor } from './models/login-logout/jwt.interceptor';
 import { AccountComponent } from './account/account.component';
 import { LoginStatusService } from './models/login-logout/login-status.service';
+import { SearchComponent } from './books/search/search.component';
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true,
   wheelSpeed: 2,
@@ -57,7 +58,8 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     GenresComponent,
     UserComponent,
     LoginComponent,
-    AccountComponent
+    AccountComponent,
+    SearchComponent
   ],
   imports: [
     AngularFontAwesomeModule,

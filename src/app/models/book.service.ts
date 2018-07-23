@@ -35,7 +35,7 @@ export class BookService {
     if (!term.trim()) {
       return of ([]);
     }
-    return this.http.get<Book[]>(`${this.booksUrl}/?title=${term}`)
+    return this.http.get<Book[]>(`${this.booksUrl}/search/${term}`)
   }
 
 //   public all(): Observable<Book[]> {

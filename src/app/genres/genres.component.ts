@@ -63,7 +63,7 @@ export class GenresComponent implements OnInit {
   delete(genre: Genre):void {
     this.genres = this.genres.filter( g => g !== genre );
     this.genreService.deleteGenre(genre).subscribe(
-      _=> this.goBack()
+    
     );
   }
   onSelect(genre):void {
@@ -72,13 +72,10 @@ export class GenresComponent implements OnInit {
 
  save():void {
    this.genreService.updateGenre(this.selectedGenre)
-    .subscribe(
+    .subscribe( _ => this.genre = _
     )
  }
 
- goBack() {
-  //  return this.location.back();
- }
 
 
 }

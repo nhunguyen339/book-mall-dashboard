@@ -19,11 +19,11 @@
                           * Title is required.
                         </p>
                       </div>
-                      <div *ngIf="getTitle.errors['maxlength']">
+                      <!-- <div *ngIf="getTitle.errors['maxlength']">
                         <p class="error">
                           * Title' maxlength is 30.
                         </p>
-                      </div>
+                      </div> -->
                       <div *ngIf="getTitle.errors['fobiddenName']">
                         <p class="error">
                           * Title is fobidden Name.
@@ -210,7 +210,7 @@
       </div>
       <div class="col-12">
         <div class="d-flex justify-content-end">
-          <button type="submit" class="btn btn-info mr-3" (click)="onSave()">Add</button>
+          <button type="submit" data-dismiss="modal" class="btn btn-info mr-3" (click)="onSave()">Add</button>
           <button type="button" data-dismiss="modal" (click)="formDir.resetForm({})" class="btn btn-danger">Cancel</button>
         </div>
       </div>

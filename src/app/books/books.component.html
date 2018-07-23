@@ -10,8 +10,10 @@
         </h3>
         <p>Using the most basic table markup, here’s how .table-based tables look in Bootstrap. All table styles are inherited
           in Bootstrap 4, meaning any nested tables will be styled in the same manner as the parent.</p>
-        <button type="button" class="btn btn-secondary m-0 mb-3 float-right" data-toggle="modal" data-target=".add-genre">Add book</button>
-
+        <div>
+          <div class="float-left"><app-search></app-search></div>
+          <button type="button" class="btn btn-secondary m-0 mb-3 float-right" data-toggle="modal" data-target=".add-genre">Add book</button>
+        </div>
         <div class="modal fade add-genre" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
           <app-add-new-book [genres]="genres"></app-add-new-book>
         </div>
@@ -34,7 +36,7 @@
               <td>{{book.genre.name}}</td>
               <td>{{book.author}}</td>
               <td class="w">
-                <button (click)="onSelectBook(book); onSelectGenre(genre)" type="button" class="btn btn-info" data-toggle="modal" data-target=".update-book">Update</button>
+                <button (click)="onSelectBook(book)" type="button" class="btn btn-info" data-toggle="modal" data-target=".update-book">Update</button>
 
                 <div class="modal update-book" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
                   <div class="modal-dialog modal-lg" *ngIf="selectedBook">
@@ -225,7 +227,7 @@
                           </div>
                           <div class="col-12">
                             <div class="d-flex justify-content-end">
-                              <button type="submit" class="btn btn-info mr-3" [disabled]="formBookUpdate.invalid" (click)="onSubmit()">Update</button>
+                              <button type="submit" class="btn btn-info mr-3" data-dismiss="modal" [disabled]="formBookUpdate.invalid" (click)="onSubmit()">Update</button>
                               <button type="button" data-dismiss="modal" (click)="formDirUpdate.resetForm({})" class="btn btn-danger">Cancel</button>
                             </div>
                           </div>

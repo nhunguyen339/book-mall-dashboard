@@ -1,0 +1,31 @@
+<!-- <div class="input-group">
+    <input type="search" id="inputSearchHeader" class="input-group-text form-control ins-input-search" placeholder="go search"
+      aria-label="Username" aria-describedby="basic-addon1" #searchBox id="search-box" (keyup)="search(searchBox.value)" >
+      <ul class="ins-search-result">
+        <li *ngFor="let book of books$ | async" >
+          <a routerLink="/product-detail/{{book._id}}">
+            {{book.title}}
+          </a>
+        </li>
+      </ul>
+    <div class="input-group-append">
+      <button type="submit" class="btn form-control" aria-describedby="inputSearchHeader" >Search</button>
+    </div>
+</div> -->
+<div class="uk-navbar-right">
+
+  <div>
+      <a class="uk-navbar-toggle" uk-search-icon href="#"></a>
+      <div class="uk-drop" uk-drop="mode: click; pos: left-center; offset: 0">
+          <form class="uk-search uk-search-navbar">
+              <input [(ngModel)]="queryString" [ngModelOptions]="{standalone: true}" #searchBox (keyup)="search(searchBox.value)" id="search-box" class="uk-search-input" type="search" placeholder="Search..." autofocus>
+          </form>
+      </div>
+  </div>
+
+</div>
+<ul *ngIf="searchBox.value" class="ins-search-result">
+  <li class="mb-3" *ngFor="let book of books$ |async">
+    <a class="ins-a-brand" routerLink="/detail/{{book._id}}">{{book.title}}</a>
+  </li>
+</ul>
